@@ -47,7 +47,6 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
     }
 
     splits {
@@ -71,34 +70,12 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-
-            shrinkResources true
-            minifyEnabled true
-            useProguard true
-
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 flutter {
     source '../..'
-}
-
-afterEvaluate {
-    mergeReleaseJniLibFolders.doLast {
-        def archTypes = ["arm-release", "arm64-release"]
-        archTypes.forEach { item ->
-            copy {
-                from zipTree("$flutterRoot/bin/cache/artifacts/engine/android-$item/flutter.jar")
-                include 'lib/*/libflutter.so'
-                into "$buildDir/intermediates/jniLibs/release/"
-                eachFile {
-                    it.path = it.path.replaceFirst("lib/", "")
-                }
-            }
-        }
-    }
 }
 
 dependencies {
