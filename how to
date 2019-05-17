@@ -9,3 +9,6 @@ storePassword=milestone@1987
 keyPassword=milestone@1987
 keyAlias=milestone
 storeFile=./milestone.jks
+
+flutter build apk --release --target-platform=android-arm64
+flutter build apk --release --target-platform=android-arm

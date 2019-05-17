@@ -121,14 +121,18 @@ class _EditProfilePage extends State<EditProfilePage> {
               ),
               GestureDetector(
                 onTap: () async {
-                  String toYmd = DateFormat('yyyy-MM-dd')
-                      .format(DateTime.parse(userBloc.currentState.user.dob))
-                      .toString();
+                  final String userDob = userBloc.currentState.user.dob;
+                  List dateList = userDob.split("-");
+                  DateTime intialDob = DateTime(
+                    int.parse(dateList[2]),
+                    int.parse(dateList[1]),
+                    int.parse(dateList[0]),
+                  );
 
                   final DateTime dob = await showDatePicker(
                     initialDatePickerMode: DatePickerMode.day,
                     context: context,
-                    initialDate: DateTime.parse(toYmd),
+                    initialDate: intialDob,
                     firstDate: DateTime(1950),
                     lastDate: DateTime(2100),
                   );
